@@ -1,12 +1,11 @@
 import ReactDOM from 'react-dom/client'
-import { RouterProvider, Router } from '@tanstack/react-router'
+import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { routeTree } from './routeTree.gen'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './index.css'
 
-// Set up a Router instance
-const router = new Router({
+const router = createRouter({
   routeTree,
   defaultPreload: 'intent',
 })

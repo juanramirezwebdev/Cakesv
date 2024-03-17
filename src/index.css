@@ -1,7 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
-  background-color: #e5eaf5; 
-  margin: 0; 
-  padding: 0; 
-  font-family: 'BioRhyme', serif;
- font-family: 'Edu SA Beginner', cursive;
+  background-color: #e5eaf5;
+  margin: 0;
+  padding: 0;
+  font-family: 'Lobster', cursive;
 }
+
+.nav-link {
+  color: #333;
+  transition: color 0.3s, transform 0.3s;
+  padding: 8px 4px; /* Add padding to create space around the links */
+  margin-right: 12px; /* Add margin to create space between the links */
+}
+
+.nav-link:hover {
+  color: #1E90FF;
+  transform: scale(1.05);
+}
+
+
+
+
+.instagram-post-wrapper {
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.instagram-post-wrapper:hover {
+  transform: scale(1.1);
+}
+

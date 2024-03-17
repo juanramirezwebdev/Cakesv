@@ -1,82 +1,82 @@
-import { FileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
+import { createFileRoute } from '@tanstack/react-router';
+import { useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
-export const Route = new FileRoute('/order').createRoute({
+
+
+export const Route = createFileRoute('/order')({
   component: OrderComponent,
-});
+})
 
 function OrderComponent() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    cakeType: '',
-  });
+  const form = useRef<HTMLFormElement>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
 
+    if (form.current) {
+      emailjs
+        .sendForm('service_eboxk9o', 'template_pfylzvy', form.current)
+        .then(
+          () => {
+            alert('Message sent successfully!');
+          },
+          (error) => {
+            console.log('FAILED...', error.text);
+          },
+        );
+    }
   };
 
   return (
-    <div className="container mt-5">
-      <h2>We will get in touch as soon as possible !</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">
-            Name:
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email:
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="cakeType" className="form-label">
-            Cake Type:
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="cakeType"
-            name="cakeType"
-            value={formData.cakeType}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit" className="btn "  style={{ backgroundColor: '#d0bdf4', color: 'white' }}>
-          Submit
-        </button>
-      </form>
-    </div>
+    <form
+      ref={form}
+      onSubmit={sendEmail}
+      style={{ marginTop: '20px', marginBottom: '20px' }}
+      className="max-w-md mx-auto mt-8 p-6 bg-white shadow-md rounded-md"
+    >
+      <div className="mb-4">
+        <label htmlFor="user_name" className="block text-gray-700 text-sm font-semibold mb-2">
+          Name
+        </label>
+        <input
+          type="text"
+          id="user_name"
+          name="user_name"
+          className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="user_email" className="block text-gray-700 text-sm font-semibold mb-2">
+          Email
+        </label>
+        <input
+          type="email"
+          id="user_email"
+          name="user_email"
+          className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="message" className="block text-gray-700 text-sm font-semibold mb-2">
+          Message
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          rows={4}
+          className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+        ></textarea>
+      </div>
+      <div>
+        <input
+          type="submit"
+          value="Send"
+          name="submit" 
+          className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
+        />
+      </div>
+    </form>
   );
 }
 

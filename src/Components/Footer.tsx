@@ -1,44 +1,47 @@
 import footerdata from '../data/footerData';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer style={{ backgroundColor: '#a28089' }} className="text-light p-4" >
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6">
-            <h4>Contact Us</h4>
-            <p>
-              <span className="me-2">
-                <img src="https://static.vecteezy.com/system/resources/previews/023/618/290/non_2x/email-icon-clipart-free-free-png.png" alt="Email icon" style={{ width: '24px', height: '24px' }} />
-              </span>
-              Email: <a href="mailto:avrueda26@hotmail.com" className="text-light">avrueda26@hotmail.com</a>
-            </p>
-
-            <p>
-              <span className="me-2">
-                <img src="https://cdn-icons-png.flaticon.com/512/2934/2934394.png" alt="Email icon" style={{ width: '24px', height: '24px' }} />
-              </span>
-              Calls: <a href="tel:+573163540243" className="text-light">+57 316 354-0243</a>
-
-            </p>
+    <footer className="bg-purple-700 text-white py-8">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Contact Us Section */}
+          <div className="flex flex-col items-center">
+            <h4 className="text-xl font-semibold mb-4">Contact Us</h4>
+            <div className="flex flex-col space-y-2">
+              {/* Email */}
+              <div className="flex items-center">
+                <FontAwesomeIcon icon={faEnvelope} className="text-xl mr-2" />
+                <a href="mailto:avrueda26@hotmail.com" className="text-white hover:text-gray-300">avrueda26@hotmail.com</a>
+              </div>
+              {/* Phone */}
+              <div className="flex items-center">
+                <FontAwesomeIcon icon={faPhone} className="text-xl mr-2" />
+                <a href="tel:+57 3163540243" className="text-white hover:text-gray-300">+57 3163540243</a>
+              </div>
+            </div>
           </div>
-          <div className="col-md-6">
-            <h4>Follow Us</h4>
-            {footerdata.map((footer, index) => (
-              <p key={index}>
-                <a href={footer.linkUrl} className="text-light d-flex align-items-center">
-                  <img src={footer.iconUrl} alt={`${footer.name} icon`} className="footer-icon me-2" style={{ width: '24px', height: '24px' }} />
+
+          {/* Social Media Section */}
+          <div className="flex flex-col items-center">
+            <h4 className="text-xl font-semibold mb-4">Follow Us</h4>
+            <div className="flex flex-col space-y-2">
+              {footerdata.map((footer, index) => (
+                <a key={index} href={footer.linkUrl} className="text-white flex items-center hover:text-gray-300">
+                  <img src={footer.iconUrl} alt={`${footer.name} icon`} className="footer-icon mr-2 w-6 h-6" />
                   {footer.name}
                 </a>
-              </p>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-md-12 text-center">
-            <p >© 2023 Juan Ramirez Web Dev. All rights reserved.</p>
-          </div>
-        </div>
+      </div>
+
+      {/* Bottom Section */}
+      <div className="border-t border-purple-600 mt-6 pt-6 text-center">
+        <p className="text-sm">&copy; {new Date().getFullYear()} Victoria Rueda Cakes. All rights reserved.</p>
       </div>
     </footer>
   );
